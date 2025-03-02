@@ -1,0 +1,161 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "Paraffin wax",
+            "subheading": "Fully refined paraffin wax",
+            "price": "Rs. 450 - Rs. 800",
+            "description": "Ignite your creativity with paraffin wax.** This versatile wax offers a smooth, even burn and exceptional fragrance throw, making it the perfect choice for crafting stunning candles.",
+            "image": "images/paraffin.jpeg",
+            "keywords": ["paraffin", "wax"],
+            "subimages": [
+                "images/paraffin.jpeg",
+                "images/paraffin2.jpeg",
+                "images/paraffin3.jpeg"
+            ],
+            "options": [
+                {
+                    "id": 1,
+                    "title": "500g",
+                    "price": 450,
+                    "weight": 0.5
+                },                
+                {
+                    "id": 2,
+                    "title": "1kg",
+                    "price": 800,
+                    "weight": 1
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Soy wax",
+            "subheading": "Natural soy wax flakes",
+            "price": "Rs. 1575 - Rs. 3135",
+            "description": "Crafting candles is a rewarding hobby that allows you to unleash your creativity and fill your home with beautiful scents. However, even the most carefully chosen wax and fragrance can be compromised by an unstable wick. This is where metal wick bases truly shine. Unlike traditional adhesives or flimsy tabs, metal wick bases offer unparalleled stability and support. They securely anchor your wick to the container, preventing it from shifting or falling over as the candle burns. This consistent positioning ensures an even burn, maximizing the fragrance throw and minimizing the risk of smoke or soot. But the benefits extend beyond just functionality. Metal wick bases enhance the overall aesthetic of your candles. Their sleek and professional appearance elevates your creations, making them look more polished and sophisticated. Whether you're a beginner or an experienced candle maker, using metal wick bases demonstrates a commitment to quality and attention to detail. Crafting candles is a rewarding hobby that allows you to unleash your creativity and fill your home with beautiful scents. However, even the most carefully chosen wax and fragrance can be compromised by an unstable wick. This is where metal wick bases truly shine. Unlike traditional adhesives or flimsy tabs, metal wick bases offer unparalleled stability and support. They securely anchor your wick to the container, preventing it from shifting or falling over as the candle burns. This consistent positioning ensures an even burn, maximizing the fragrance throw and minimizing the risk of smoke or soot. But the benefits extend beyond just functionality. Metal wick bases enhance the overall aesthetic of your candles. Their sleek and professional appearance elevates your creations, making them look more polished and sophisticated. Whether you're a beginner or an experienced candle maker, using metal wick bases demonstrates a commitment to quality and attention to detail.",
+            "image": "images/soy.jpeg",
+            "keywords": ["soy", "wax"],
+            "subimages": [
+                "images/soy.jpeg",
+                "images/soy2.jpg"
+            ],
+            "options": [
+                {
+                    "id": 1,
+                    "title": "500g",
+                    "price": 1575,
+                    "weight": 0.5
+                },
+                {
+                    "id": 2,
+                    "title": "1kg",
+                    "price": 3135,
+                    "weight": 1
+                }   
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Metal Candle Wick Bases",
+            "subheading": "Metal sustainer bases 25pcs",
+            "price": "Rs. 150",
+            "description": "Metal candle wick bases work by providing a secure and stable foundation for your candle wick, ensuring it remains centered and upright throughout the burning process. This prevents the wick from shifting or falling over, which can lead to uneven burning, excessive smoke, and even fire hazards. By keeping the wick centered, metal bases promote a clean and consistent burn, maximizing the fragrance throw and minimizing waste.",
+            "image": "images/pins.jpeg",
+            "keywords": ["pin", "sustainer", "wicks", "base"],
+            "subimages": [
+                "images/pins.jpeg"
+            ],
+            "options": [
+                {
+                    "id": 1,
+                    "title": "25",
+                    "price": 150,
+                    "weight": 0.01
+                }   
+            ]
+        },
+        {
+            "id": 4,
+            "title": "Starter Pack 1",
+            "subheading": "Candle starter pack 1",
+            "price": "Rs. 2460",
+            "description": "This starter pack includes 1kg of paraffin wax, 100g of stearic acid, 5g of colour dye, 10ml fragrance, 2 candle glasses, 150cm candle wick. This is packed in a corrugated box which is your ideal gift for your loved ones.",
+            "image": "images/starterpack1.png",
+            "keywords": ["pack", "deals", "starter"],
+            "subimages": [
+                "images/starterpack1.png"
+            ],
+            "options": [
+                {
+                    "id": 1,
+                    "title": "Pack 1",
+                    "price": 2460,
+                    "weight": 1.6
+                }   
+            ]
+        },
+        {
+            "id": 5,
+            "title": "Starter Pack 2",
+            "subheading": "Candle starter pack 2",
+            "price": "Rs. 3660",
+            "description": "This starter pack includes 500g of paraffin wax, 500g of soy wax, 100g of stearic acid, 5g of colour dye, 10ml fragrance, 2 candle glasses, 150cm candle wick. This is packed in a corrugated box which is your ideal gift for your loved ones.",
+            "image": "images/starterpack2.png",
+            "keywords": ["pack", "deals", "starter"],
+            "subimages": [
+                "images/starterpack2.png"
+            ],
+            "options": [
+                {
+                    "id": 1,
+                    "title": "Pack 2",
+                    "price": 3660,
+                    "weight": 1.6
+                }   
+            ]
+        },
+        {
+            "id": 6,
+            "title": "Starter Pack 3",
+            "subheading": "Candle starter pack 3",
+            "price": "Rs. 3660",
+            "description": "This starter pack includes 500g of paraffin wax, 250g of soy wax, 250 of gel wax, 100g of stearic acid, 5g of colour dye, 10ml fragrance, 2 candle glasses, 150cm candle wick. This is packed in a corrugated box which is your ideal gift for your loved ones.",
+            "image": "images/starterpack3.png",
+            "keywords": ["pack", "deals", "starter"],
+            "subimages": [
+                "images/starterpack3.png"
+            ],
+            "options": [
+                {
+                    "id": 1,
+                    "title": "Pack 3",
+                    "price": 3660,
+                    "weight": 1.6
+                }   
+            ]
+        },
+        {
+            "id": 7,
+            "title": "Starter Pack 1",
+            "subheading": "Candle starter pack 1",
+            "price": "Rs. 150",
+            "description": "This starter pack includes 500g of paraffin wax, 500g of gel wax, 100g of stearic acid, 5g of colour dye, 10ml fragrance, 2 candle glasses, 150cm candle wick. This is packed in a corrugated box which is your ideal gift for your loved ones.",
+            "image": "images/starterpack4.png",
+            "keywords": ["pack", "deals", "starter"],
+            "subimages": [
+                "images/starterpack4.png"
+            ],
+            "options": [
+                {
+                    "id": 1,
+                    "title": "Pack 4",
+                    "price": 3660,
+                    "weight": 1.6
+                }   
+            ]
+        }
+    
+    ]
+}
+
