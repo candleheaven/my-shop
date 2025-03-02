@@ -19,16 +19,75 @@ import SidebarFooter from './components/SidebarFooter';
 import './index.css';
 import { subtotal } from './components/Cart';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from "@asgardeo/auth-react";
+
 
 function App(props) {
+  const { isAuthenticated } = useAuthContext();
+  React.useEffect(() => {
+    isAuthenticated().then((response) => {
+        if (response === true) {
+            // User is authenticated
+            console.log("User is authenticated");
+        } else {
+            // User is not authenticated
+            console.log("User is not authenticated");
+        }
+    }).catch((error) => {
+        console.log(error);
+    });
+}, [])
   const { window, route } = props;
   const router = useDemoRouter(route);
   // Remove this const when copying and pasting into your project.
   const demoWindow = window !== undefined ? window() : undefined;
   const [cartItems, setCartItems] = React.useState([]);
+  const { state, signIn, signOut } = useAuthContext();
+  const [session, setSession] = React.useState({
+    // user: {
+    //   name: 'Bharat Kashyap',
+    //   email: 'bharatkashyap@outlook.com',
+    //   image: 'https://avatars.githubusercontent.com/u/19550456',
+    // },
+  });
+  console.log("state", state);
+  // const [session,setSession] = React.useState({});
+
+  const authentication = React.useMemo(() => {
+    return {
+      signIn: () => {
+        // setSession({
+        //   user: {
+        //     name: 'Bharat Kashyap',
+        //     email: 'bharatkashyap@outlook.com',
+        //     image: 'https://avatars.githubusercontent.com/u/19550456',
+        //   },
+        // });
+        signIn();
+
+        setSession({
+          user: {
+            name: state.displayName,
+            email: state.username,
+            image: 'https://avatars.githubusercontent.com/u/19550456',
+          },
+        });
+
+        console.log(state);
+      },
+      signOut: () => {
+        signOut();
+        setSession(null);
+      },
+    };
+  }, []);
+
+
   return (
     // preview-start
     <AppProvider
+      session={session}
+      authentication={authentication}
       navigation={NAVIGATION(cartItems.length, subtotal(cartItems))}
       router={router}
       theme={theme}

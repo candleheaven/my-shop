@@ -24,9 +24,22 @@ import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import 'font-awesome/css/font-awesome.min.css';
+import { AuthProvider } from "@asgardeo/auth-react";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
+  <AuthProvider
+        config={ {
+            signInRedirectURL: "https://11985d64-9abd-4838-883d-ee2504245aea.e1-us-east-azure.choreoapps.dev/",
+            signOutRedirectURL: "https://11985d64-9abd-4838-883d-ee2504245aea.e1-us-east-azure.choreoapps.dev/",
+            clientID: "b4256EaDFyUWvJUkMSziS4WFjQka",
+            baseUrl: "https://api.asgardeo.io/t/candleheaven",
+            scope: [ "openid","profile" ]
+        } }
+    >
+        { /* Rest of your application.  */ }
+
   <React.StrictMode>
     <Router>
       <Routes>
@@ -43,6 +56,7 @@ root.render(
       </Routes>
     </Router>
   </React.StrictMode>
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
