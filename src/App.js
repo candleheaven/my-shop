@@ -24,11 +24,19 @@ import { useAuthContext } from "@asgardeo/auth-react";
 
 function App(props) {
   const { isAuthenticated } = useAuthContext();
+  
   React.useEffect(() => {
     isAuthenticated().then((response) => {
         if (response === true) {
             // User is authenticated
             console.log("User is authenticated");
+            setSession({
+              user: {
+                name: state.username,
+                email: state.username,
+                image: 'https://avatars.githubusercontent.com/u/19550456',
+              },
+            });
         } else {
             // User is not authenticated
             console.log("User is not authenticated");
@@ -56,20 +64,12 @@ function App(props) {
   const authentication = React.useMemo(() => {
     return {
       signIn: () => {
-        // setSession({
-        //   user: {
-        //     name: 'Bharat Kashyap',
-        //     email: 'bharatkashyap@outlook.com',
-        //     image: 'https://avatars.githubusercontent.com/u/19550456',
-        //   },
-        // });
         signIn();
-
         setSession({
           user: {
             name: state.displayName,
             email: state.username,
-            image: 'https://avatars.githubusercontent.com/u/19550456',
+            image: null,
           },
         });
 
@@ -81,9 +81,30 @@ function App(props) {
       },
     };
   }, []);
+  const { on } = useAuthContext();
 
+  React.useEffect(() => {
+      on("sign-in", () => {
+          //called after signing in.
+          setSession({
+            user: {
+              name: state.displayName,
+              email: state.username,
+              image: null,
+            },
+          });
+          console.log("User signed in" + state.displayName);
+      });
+      
+      on("sign-out", () => {
+          //called after signing out.
+          setSession(null);
+          console.log("User signed out");
+      });
+  }, [on]);
 
   return (
+    
     // preview-start
     <AppProvider
       session={session}
