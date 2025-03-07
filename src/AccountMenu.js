@@ -1,4 +1,6 @@
 import { Account } from '@toolpad/core/Account';
+import Avatar from '@mui/material/Avatar';
+
 
 function AccountMenu() {
 
@@ -7,7 +9,6 @@ function AccountMenu() {
       slotProps={{
         signInButton: {
           color: 'info',
-
           variant: 'outlined',
         },
         preview: {
@@ -20,7 +21,7 @@ function AccountMenu() {
               },
             },
             avatar: {
-              variant: 'circular'
+              variant: 'circular',
             },
           },
         },

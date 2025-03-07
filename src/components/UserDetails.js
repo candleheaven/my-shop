@@ -27,6 +27,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LocalPhoneSharpIcon from '@mui/icons-material/LocalPhoneSharp';
 import emailjs from '@emailjs/browser';
 import EmailSharpIcon from '@mui/icons-material/EmailSharp';
+import { useAuthContext } from "@asgardeo/auth-react";
 
 export default function UserDetails({ setActiveStep, cartItems, district }) {
     const formRef = useRef(null);
@@ -39,6 +40,22 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
     // const [order, setOrder] = useState();
+    const [name, setName] = useState();
+    const [address, setAddress] = useState();
+    const [phone1, setPhone1] = useState();
+    const [phone2, setPhone2] = useState();
+    const { getDecodedIDToken } = useAuthContext();
+
+    getDecodedIDToken().then((decodedIdToken) => {
+        console.log("Decoded ID Token in user");
+        console.log(decodedIdToken);
+        setName(decodedIdToken.username);
+        setAddress(decodedIdToken.address.DeliveryAddress);
+        setPhone1(decodedIdToken.phone_number);
+        setPhone2(decodedIdToken.SecondaryMobile);
+
+    });
+
     const totalCount = cartItems.map(({ count }) => count).reduce((sum, i) => sum + i, 0);
     const handleCompleteOrder = (e) => {
 
@@ -164,6 +181,7 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                         label="Full Name"
                         variant="outlined"
                         name="name"
+                        value={name}
                         slotProps={{
                             input: {
                               startAdornment: (
@@ -180,6 +198,7 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                         label="Address"
                         variant="outlined"
                         name="address"
+                        value={address}
                         slotProps={{
                             input: {
                               startAdornment: (
@@ -195,6 +214,7 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                         label="Email"
                         variant="outlined"
                         name="email"
+                        value={name}
                         slotProps={{
                             input: {
                               startAdornment: (
@@ -213,6 +233,7 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                             variant="outlined"
                             sx={{ width: '200%' }}
                             name="contact-number-1"
+                            value={phone1}
                             slotProps={{
                                 input: {
                                   startAdornment: (
@@ -229,6 +250,7 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                             variant="outlined"
                             sx={{ width: '200%' }}
                             name="contact-number-2"
+                            value={phone2}
                             slotProps={{
                                 input: {
                                   startAdornment: (

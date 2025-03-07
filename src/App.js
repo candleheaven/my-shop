@@ -20,54 +20,79 @@ import './index.css';
 import { subtotal } from './components/Cart';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from "@asgardeo/auth-react";
-import { Account } from '@toolpad/core/Account';
 import AccountMenu from './AccountMenu.js';
 
-
 function App(props) {
-  // const { isAuthenticated } = useAuthContext();
-  
-//   React.useEffect(() => {
-//     isAuthenticated().then((response) => {
-//         if (response === true) {
-//             // User is authenticated
-//             console.log("User is authenticated");
-//             setSession({
-//               user: {
-//                 name: state.username,
-//                 email: state.username,
-//                 image: 'https://avatars.githubusercontent.com/u/19550456',
-//               },
-//             });
-//         } else {
-//             // User is not authenticated
-//             console.log("User is not authenticated");
-//         }
-//     }).catch((error) => {
-//         console.log(error);
-//     });
-// }, [])
+  const { state, signIn, signOut, getBasicUserInfo, isAuthenticated, getDecodedIDToken } = useAuthContext();
+
+  React.useEffect(() => {
+    const checkAuthentication = async () => {
+      console.log("Checking authentication");
+      const response = await isAuthenticated() && state.username !== null;
+      console.log("awaited response: " + response);
+      if (response === true) {
+        // User is authenticated
+        console.log("User is authenticated");
+        console.log(state);
+        setSession({
+          user: {
+            name: state.username,
+            email: state.username,
+            image: "TEST"
+          },
+        });
+        getBasicUserInfo().then((response) => {
+          console.log("Basic user info");
+          console.log(response);
+        });
+        getDecodedIDToken().then((decodedIdToken) => {
+          console.log("Decoded ID Token");
+          console.log(decodedIdToken);
+      });
+
+      } else {
+        // User is not authenticated
+        console.log("User is not authenticated");
+      }
+    };
+
+    const waitForLoading = async () => {
+      while (state.isLoading) {
+        await new Promise(resolve => setTimeout(resolve, 100)); // Wait for 100ms
+      }
+      checkAuthentication();
+    };
+
+    waitForLoading();
+  }, [isAuthenticated, state.isLoading, state.username]);
+
+
   const { window, route } = props;
   const router = useDemoRouter(route);
   // Remove this const when copying and pasting into your project.
   const demoWindow = window !== undefined ? window() : undefined;
   const [cartItems, setCartItems] = React.useState([]);
-  const { state, signIn, signOut } = useAuthContext();
+ 
   const [session, setSession] = React.useState({});
+
 
   const authentication = React.useMemo(() => {
     return {
       signIn: () => {
-        signIn();
-        setSession({
-          user: {
-            name: state.displayName,
-            email: state.username,
-            image: null,
-          },
+        signIn().then((response) => {
+          if (response) {
+            setSession({
+              user: {
+                name: state.displayName,
+                email: state.username,
+                image: "TEST"
+              },
+            });
+            console.log(state);
+          }
         });
 
-        console.log(state);
+
       },
       signOut: () => {
         signOut();
@@ -77,28 +102,8 @@ function App(props) {
   }, []);
   const { on } = useAuthContext();
 
-  React.useEffect(() => {
-      on("sign-in", () => {
-          //called after signing in.
-          setSession({
-            user: {
-              name: state.displayName,
-              email: state.username,
-              image: null,
-            },
-          });
-          console.log("User signed in" + state.displayName);
-      });
-      
-      on("sign-out", () => {
-          //called after signing out.
-          setSession(null);
-          console.log("User signed out");
-      });
-  }, [on]);
-
   return (
-    
+
     // preview-start
     <AppProvider
       session={session}
@@ -118,7 +123,7 @@ function App(props) {
       >
         <PageContent pathname={router.pathname} cartItems={cartItems} setCartItems={setCartItems} />
       </DashboardLayout>
-      
+
     </AppProvider>
     // preview-end
   );
@@ -139,9 +144,9 @@ function CustomAppTitle() {
   };
   return (
     <Stack direction="row" alignItems="center" spacing={2} onClick={handleTitleClick} sx={{ cursor: 'pointer' }}>
-       <img src="images/logo.jpeg" alt="Candle Heaven" width='90px' height='70px'/> 
-      <Typography variant="h4" sx={{fontWeight:"bold"}}>Candle Heaven</Typography>
-      <WhatsAppIcon color="success"/><h5 sx={{fontWeight:'bold'}}>070 53 20 205</h5>
+      <img src="images/logo.jpeg" alt="Candle Heaven" width='90px' height='70px' />
+      <Typography variant="h4" sx={{ fontWeight: "bold" }}>Candle Heaven</Typography>
+      <WhatsAppIcon color="success" /><h5 sx={{ fontWeight: 'bold' }}>070 53 20 205</h5>
     </Stack>
   );
 }
