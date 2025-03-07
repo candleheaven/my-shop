@@ -133,7 +133,7 @@ function DetailPage({ product, open, setOpen, setCartItems }) {
           <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
             Rs. {price}
           </Typography>
-          <Button autoFocus onClick={handleAddToCart} disabled={count < 1}>
+          <Button autoFocus onClick={handleAddToCart} disabled={count < 1} variant="contained" color="primary">
             <AddShoppingCartSharpIcon/>Add to cart
           </Button>
         </DialogActions>

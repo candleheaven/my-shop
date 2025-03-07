@@ -28,6 +28,7 @@ import LocalPhoneSharpIcon from '@mui/icons-material/LocalPhoneSharp';
 import emailjs from '@emailjs/browser';
 import EmailSharpIcon from '@mui/icons-material/EmailSharp';
 import { useAuthContext } from "@asgardeo/auth-react";
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
 export default function UserDetails({ setActiveStep, cartItems, district }) {
     const formRef = useRef(null);
@@ -40,10 +41,10 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
     // const [order, setOrder] = useState();
-    const [name, setName] = useState();
-    const [address, setAddress] = useState();
-    const [phone1, setPhone1] = useState();
-    const [phone2, setPhone2] = useState();
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [phone1, setPhone1] = useState("");
+    const [phone2, setPhone2] = useState("");
     const { getDecodedIDToken } = useAuthContext();
 
     getDecodedIDToken().then((decodedIdToken) => {
@@ -92,78 +93,82 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
 
     const sendEmail = (e, formData) => {
         e.preventDefault();
-    
+
         emailjs.send(
-          'service_candle_heaven',  // Replace with your EmailJS Service ID
-          'template_web_order', // Replace with your EmailJS Template ID
-          {
-            order: formData.get('order'),
-            subtotal: formData.get('subtotal'),
-            shipping: formData.get('shipping'),
-            total: formData.get('total'),
-            name: formData.get('name'),
-            address: formData.get('address'),
-            contactNumber1: formData.get('contact-number-1'),
-            contactNumber2: formData.get('contact-number-2'),
-            paymentMode: formData.get('payment-mode')
-          },
-          'u-vEeu4mGBgXOwIjR'   // Replace with your EmailJS Public Key
+            'service_candle_heaven',  // Replace with your EmailJS Service ID
+            'template_web_order', // Replace with your EmailJS Template ID
+            {
+                order: formData.get('order'),
+                subtotal: formData.get('subtotal'),
+                shipping: formData.get('shipping'),
+                total: formData.get('total'),
+                name: formData.get('name'),
+                address: formData.get('address'),
+                contactNumber1: formData.get('contact-number-1'),
+                contactNumber2: formData.get('contact-number-2'),
+                paymentMode: formData.get('payment-mode')
+            },
+            'u-vEeu4mGBgXOwIjR'   // Replace with your EmailJS Public Key
         ).then(
-          (result) => {
-            setShowSuccess(true);
-            setShowError(false);
-          },
-          (error) => {
-            setShowSuccess(false);
-            setShowError(true);
-          }
+            (result) => {
+                setShowSuccess(true);
+                setShowError(false);
+            },
+            (error) => {
+                setShowSuccess(false);
+                setShowError(true);
+            }
         );
-      };
+    };
+
+    const handleEditDeliveryDetails = () => {
+        window.location.href = 'https://myaccount.asgardeo.io/t/candleheaven';
+    };
 
     return (
         <div>
-                <Grid container sx={{ mt: 5, ml: 10}}>
-                    <Grid size={2} />
-                    <Grid size={10}>
-                        <Accordion defaultExpanded={true} sx={{ width: '60%', mb: 2, background: 'aliceblue' }}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel1-content"
-                                id="panel1-header"
-                            >
-                                <Typography component="span" sx={{ fontWeight: 'bold' }}>Items ({totalCount})</Typography>
-                            </AccordionSummary>
-                            {cartItems.map(({ product, option, count }) => (
-                                <AccordionDetails>
-                                    <Grid container>
-                                        <Grid size={4} align='left'>
-                                            <div>{product.title} {option.title}</div>
-                                        </Grid>
-                                        <Grid size={4}>
-                                            <div>x {count}</div>
-                                        </Grid>
-                                        <Grid size={4}>
-                                            <div>Rs. {ccyFormat(option.price * count)}</div>
-                                        </Grid>
-                                    </Grid>
-                                    </AccordionDetails>
-                            ))}
-                        </Accordion>
-                        <Accordion sx={{ width: '60%', mb: 2, background: 'aliceblue' }}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel3-content"
-                                id="panel3-header"
-                            >
-                                <Typography component="span" sx={{ fontWeight: 'bold' }}><Stack direction="row" spacing={51}><div>Total</div><div>Rs. {total}</div></Stack></Typography>
-                            </AccordionSummary>
+            <Grid container sx={{ mt: 5, ml: 10 }}>
+                <Grid size={2} />
+                <Grid size={10}>
+                    <Accordion defaultExpanded={true} sx={{ width: '60%', mb: 2, background: 'aliceblue' }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1-content"
+                            id="panel1-header"
+                        >
+                            <Typography component="span" sx={{ fontWeight: 'bold' }}>Items ({totalCount})</Typography>
+                        </AccordionSummary>
+                        {cartItems.map(({ product, option, count }) => (
                             <AccordionDetails>
-                                <Typography component="span"><Stack direction="row" spacing={30}><div>Cart value</div><div>Rs. {ccyFormat(sub)}</div></Stack></Typography>
-                                <Typography component="span"><Stack direction="row" spacing={31}><div>Shipping</div><div>Rs. {ccyFormat(shipping)}</div></Stack></Typography>
+                                <Grid container>
+                                    <Grid size={4} align='left'>
+                                        <div>{product.title} {option.title}</div>
+                                    </Grid>
+                                    <Grid size={4}>
+                                        <div>x {count}</div>
+                                    </Grid>
+                                    <Grid size={4}>
+                                        <div>Rs. {ccyFormat(option.price * count)}</div>
+                                    </Grid>
+                                </Grid>
                             </AccordionDetails>
-                        </Accordion>
-                    </Grid>
+                        ))}
+                    </Accordion>
+                    <Accordion sx={{ width: '60%', mb: 2, background: 'aliceblue' }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel3-content"
+                            id="panel3-header"
+                        >
+                            <Typography component="span" sx={{ fontWeight: 'bold' }}><Stack direction="row" spacing={51}><div>Total</div><div>Rs. {total}</div></Stack></Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography component="span"><Stack direction="row" spacing={30}><div>Cart value</div><div>Rs. {ccyFormat(sub)}</div></Stack></Typography>
+                            <Typography component="span"><Stack direction="row" spacing={31}><div>Shipping</div><div>Rs. {ccyFormat(shipping)}</div></Stack></Typography>
+                        </AccordionDetails>
+                    </Accordion>
                 </Grid>
+            </Grid>
             <Typography align='center' sx={{ fontWeight: 'bold', fontSize: "1.8vw", pt: 4, pb: 2 }}>Delivery details</Typography>
             <Box
                 component="form"
@@ -184,11 +189,11 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                         value={name}
                         slotProps={{
                             input: {
-                              startAdornment: (
-                                <InputAdornment position="start">
-                                  <PersonSharpIcon />
-                                </InputAdornment>
-                              ),
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <PersonSharpIcon />
+                                    </InputAdornment>
+                                ),
                             },
                         }}
                     />
@@ -201,15 +206,15 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                         value={address}
                         slotProps={{
                             input: {
-                              startAdornment: (
-                                <InputAdornment position="start">
-                                  <HomeSharpIcon />
-                                </InputAdornment>
-                              ),
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <HomeSharpIcon />
+                                    </InputAdornment>
+                                ),
                             },
                         }}
                     />
-                     <TextField
+                    <TextField
                         id="email"
                         label="Email"
                         variant="outlined"
@@ -217,11 +222,11 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                         value={name}
                         slotProps={{
                             input: {
-                              startAdornment: (
-                                <InputAdornment position="start">
-                                  <EmailSharpIcon />
-                                </InputAdornment>
-                              ),
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <EmailSharpIcon />
+                                    </InputAdornment>
+                                ),
                             },
                         }}
                     />
@@ -236,11 +241,11 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                             value={phone1}
                             slotProps={{
                                 input: {
-                                  startAdornment: (
-                                    <InputAdornment position="start">
-                                      <WhatsAppIcon />
-                                    </InputAdornment>
-                                  ),
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <WhatsAppIcon />
+                                        </InputAdornment>
+                                    ),
                                 },
                             }}
                         />
@@ -253,11 +258,11 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                             value={phone2}
                             slotProps={{
                                 input: {
-                                  startAdornment: (
-                                    <InputAdornment position="start">
-                                      <LocalPhoneSharpIcon />
-                                    </InputAdornment>
-                                  ),
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <LocalPhoneSharpIcon />
+                                        </InputAdornment>
+                                    ),
                                 },
                             }}
                         />
@@ -275,6 +280,9 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
                             <MenuItem value="bank-transfer">Bank Transfer</MenuItem>
                         </Select>
                     </FormControl>
+                    <Button variant="outlined" onClick={handleEditDeliveryDetails} startIcon={<DriveFileRenameOutlineIcon />}>
+                        Edit Delivery details
+                    </Button>
                 </Stack>
             </Box>
             {/* <TextField type="hidden" id="order" name="order" value={JSON.stringify(order)} />
@@ -292,7 +300,7 @@ export default function UserDetails({ setActiveStep, cartItems, district }) {
             {error && <Alert severity="error" sx={{ position: 'fixed', bottom: 16, right: 16 }}>Please enter all details</Alert>}
             {showSuccess && <Alert severity="success" sx={{ position: 'fixed', bottom: 16, right: 16 }} >Order placed successfully. You'll receive confirmation message shortly.</Alert>}
             {showError && <Alert severity="error" sx={{ position: 'fixed', bottom: 16, right: 16 }} >Order placement unseccessful. Please retry.</Alert>}
-                
+
             <div>
                 <Backdrop
                     sx={(theme) => ({

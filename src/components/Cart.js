@@ -19,7 +19,7 @@ import { FormControl, InputLabel, MenuItem, Select, IconButton } from '@mui/mate
 import RemoveShoppingCartSharpIcon from '@mui/icons-material/RemoveShoppingCartSharp';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
-
+import { useAuthContext } from "@asgardeo/auth-react";
 
 const districts = ['Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle', 'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy', 'Kegalle', 'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Monaragala', 'Mullaitivu', 'NuwaraEliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya'];
 export function ccyFormat(price) {
@@ -52,6 +52,7 @@ function handleError(setError) {
 }
 
 function Cart(cartItems, setCartItems, district, setDistrict, setActiveStep, error, setError) {
+    const {isAuthenticated, signIn } = useAuthContext();
     const cartSubtotal = subtotal(cartItems);
     const cartWeight = cartItems.map(({ option, count }) => option.weight * count).reduce((sum, i) => sum + i, 0);
     let shipping = calculateShipping(district, cartWeight);
@@ -74,6 +75,20 @@ function Cart(cartItems, setCartItems, district, setDistrict, setActiveStep, err
         setCartItems(cartItems.map(item =>
             item.product.id === productId ? { ...item, count: item.count + 1 } : item
         ));
+    };
+
+    const handleCheckout = async () => {
+        if (district === "") {
+            handleError(setError);
+            return;
+        }
+
+        const authenticated = await isAuthenticated();
+        if (!authenticated) {
+            await signIn();
+        } else {
+            setActiveStep(1);
+        }
     };
 
     const handleDecrement = (productId) => {
@@ -195,7 +210,7 @@ function Cart(cartItems, setCartItems, district, setDistrict, setActiveStep, err
             }
             {cartItems.length > 0 &&
                 <Box display="flex" justifyContent="flex-end" sx={{ marginTop: 2, marginRight: 20 }}>
-                    <Button variant="contained" startIcon={<LocalMallSharpIcon />} onClick={() => district !== "" ? setActiveStep(1) : handleError(setError)}>
+                    <Button variant="contained" startIcon={<LocalMallSharpIcon />} onClick={handleCheckout}>
                         Checkout
                     </Button>
                 </Box>
