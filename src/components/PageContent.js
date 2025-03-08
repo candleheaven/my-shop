@@ -22,12 +22,13 @@ import DetailPage from './DetailPage';
 import about from './About';
 import reviews from './Reviews';
 import HorizontalLinearStepper from './Stepper';
+import { useAuthContext } from "@asgardeo/auth-react";
 
 PageContent.propTypes = {
   pathname: PropTypes.string.isRequired,
 };
 
-function PageContent({ pathname, cartItems, setCartItems }) {
+function PageContent({ pathname, cartItems, setCartItems, session, authentication }) {
     const [favoriteItems, setFavoriteItems] = useState([]);
     const [district, setDistrict] = useState('');
     const [error, setError] = useState(false);
@@ -48,9 +49,12 @@ function PageContent({ pathname, cartItems, setCartItems }) {
         error,
         activeStep,
         cartItems,
+        useAuthContext,
+        session,
+        authentication
       };
       window.history.pushState(stateData, '', pathname);
-    }, [pathname, favoriteItems, district, error, activeStep, cartItems]);
+    }, [pathname, favoriteItems, district, error, activeStep, cartItems, session, authentication]);
   
     return (
         <Box

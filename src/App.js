@@ -121,7 +121,7 @@ function App(props) {
           toolbarAccount: AccountMenu,
         }}
       >
-        <PageContent pathname={router.pathname} cartItems={cartItems} setCartItems={setCartItems} />
+        <PageContent pathname={router.pathname} cartItems={cartItems} setCartItems={setCartItems} session={session} authentication={authentication} />
       </DashboardLayout>
 
     </AppProvider>
