@@ -41,7 +41,7 @@ function PageContent({ pathname, cartItems, setCartItems }) {
     const removeFavorite = (productId) => {
         setFavoriteItems((prevFavorites) => prevFavorites.filter(item => item.id !== productId));
     };
-
+    window.history.replaceState(null, '', pathname);
     return (
         <Box
             sx={{
