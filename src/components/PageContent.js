@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import React from 'react';
 
 import Box from '@mui/material/Box';
@@ -41,7 +41,17 @@ function PageContent({ pathname, cartItems, setCartItems }) {
     const removeFavorite = (productId) => {
         setFavoriteItems((prevFavorites) => prevFavorites.filter(item => item.id !== productId));
     };
-    window.history.replaceState(null, '', pathname);
+    useEffect(() => {
+      const stateData = {
+        favoriteItems,
+        district,
+        error,
+        activeStep,
+        cartItems,
+      };
+      window.history.pushState(stateData, '', pathname);
+    }, [pathname, favoriteItems, district, error, activeStep, cartItems]);
+  
     return (
         <Box
             sx={{
